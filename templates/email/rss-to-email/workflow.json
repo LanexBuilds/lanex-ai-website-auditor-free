@@ -1,0 +1,56 @@
+{
+  "name": "RSS to Email",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "### 🚀 Enjoying this template?\n\nThis is the free, basic version. If you want this custom-built and connected to your specific tools (your CRM, your email, your database), I can do it for you.\n\n👉 **[Book a 15-min setup session here](https://lanexbuilds.com/book-audit?utm_source=n8n_template&utm_campaign=rss-to-email)**",
+        "height": 300,
+        "width": 400
+      },
+      "id": "sticky-note-id",
+      "name": "CTA",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-200, -200]
+    },
+    {
+      "parameters": {
+        "url": "https://example.com/rss"
+      },
+      "id": "rss-id",
+      "name": "RSS Feed Read",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [200, 0]
+    },
+    {
+      "parameters": {
+        "fromEmail": "sender@example.com",
+        "toEmail": "recipient@example.com",
+        "subject": "New RSS Item: {{$json.title}}",
+        "text": "{{$json.contentSnippet}} \n Read more: {{$json.link}}"
+      },
+      "id": "email-id",
+      "name": "Email Send",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [400, 0]
+    }
+  ],
+  "connections": {
+    "RSS Feed Read": {
+      "main": [
+        [
+          {
+            "node": "Email Send",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

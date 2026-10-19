@@ -1,0 +1,60 @@
+{
+  "name": "Slack Daily Reminder",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "### 🚀 Enjoying this template?\n\nThis is the free, basic version. If you want this custom-built and connected to your specific tools (your CRM, your email, your database), I can do it for you.\n\n👉 **[Book a 15-min setup session here](https://lanexbuilds.com/book-audit?utm_source=n8n_template&utm_campaign=slack-daily-reminder)**",
+        "height": 300,
+        "width": 400
+      },
+      "id": "sticky-note-id",
+      "name": "CTA",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-200, -200]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days"
+            }
+          ]
+        }
+      },
+      "id": "schedule-id",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [200, 0]
+    },
+    {
+      "parameters": {
+        "channel": "general",
+        "text": "Time for the daily standup!"
+      },
+      "id": "slack-id",
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [400, 0]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
