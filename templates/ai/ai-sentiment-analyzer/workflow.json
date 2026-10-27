@@ -1,0 +1,71 @@
+{
+  "name": "AI Sentiment Analyzer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "### 🚀 Enjoying this template?\n\nThis is the free, basic version. If you want this custom-built and connected to your specific tools (your CRM, your email, your database), I can do it for you.\n\n👉 **[Book a 15-min setup session here](https://lanexbuilds.com/book-audit?utm_source=n8n_template&utm_campaign=ai-sentiment-analyzer)**",
+        "height": 300,
+        "width": 400
+      },
+      "id": "sticky-note-id",
+      "name": "CTA",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-200, -200]
+    },
+    {
+      "parameters": {
+        "path": "analyze-sentiment",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 240],
+      "webhookId": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
+    },
+    {
+      "parameters": {
+        "model": "gpt-3.5-turbo",
+        "messages": {
+          "messageValues": [
+            {
+              "role": "user",
+              "content": "=Analyze the sentiment of the following text and return only 'Positive', 'Negative', or 'Neutral':\n\n{{ $json.query.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "openai-node",
+      "name": "OpenAI",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [460, 240],
+      "credentials": {
+        "openAiApi": {
+          "id": "openAiApi",
+          "name": "OpenAi API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

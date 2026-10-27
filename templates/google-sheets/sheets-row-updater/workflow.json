@@ -1,0 +1,76 @@
+{
+  "name": "Sheets Row Updater",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "### 🚀 Enjoying this template?\n\nThis is the free, basic version. If you want this custom-built and connected to your specific tools (your CRM, your email, your database), I can do it for you.\n\n👉 **[Book a 15-min setup session here](https://lanexbuilds.com/book-audit?utm_source=n8n_template&utm_campaign=sheets-row-updater)**",
+        "height": 300,
+        "width": 400
+      },
+      "id": "sticky-note-id",
+      "name": "CTA",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-200, -200]
+    },
+    {
+      "parameters": {
+        "path": "update-sheet",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 240],
+      "webhookId": "c81deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData"
+        },
+        "options": {}
+      },
+      "id": "google-sheets-node",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.1,
+      "position": [460, 240],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "googleSheetsOAuth2Api",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
