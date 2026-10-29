@@ -1,0 +1,71 @@
+{
+  "name": "Webhook Data Filter",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "### \ud83d\ude80 Enjoying this template?\n\nThis is the free, basic version. If you want this custom-built and connected to your specific tools (your CRM, your email, your database), I can do it for you.\n\n\ud83d\udc49 **[Book a 15-min setup session here](https://lanexbuilds.com/book-audit?utm_source=n8n_template&utm_campaign=webhook-data-filter)**",
+        "height": 300,
+        "width": 400
+      },
+      "id": "sticky-note-id",
+      "name": "CTA",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        -200
+      ]
+    },
+    {
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "path": "data-filter",
+        "httpMethod": "POST",
+        "responseMode": "onReceived"
+      }
+    },
+    {
+      "id": "if",
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        200,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.status}}",
+              "value2": "active"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
