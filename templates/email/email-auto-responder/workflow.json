@@ -1,0 +1,56 @@
+{
+  "name": "Email Auto Responder",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "### 🚀 Enjoying this template?\n\nThis is the free, basic version. If you want this custom-built and connected to your specific tools (your CRM, your email, your database), I can do it for you.\n\n👉 **[Book a 15-min setup session here](https://lanexbuilds.com/book-audit?utm_source=n8n_template&utm_campaign=email-auto-responder)**",
+        "height": 300,
+        "width": 400
+      },
+      "id": "sticky-note-id",
+      "name": "CTA",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-200, -200]
+    },
+    {
+      "parameters": {
+        "postProcessAction": "nothing",
+        "downloadAttachments": false
+      },
+      "id": "email-read-id",
+      "name": "Email Read",
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 1,
+      "position": [250, 0]
+    },
+    {
+      "parameters": {
+        "fromEmail": "YOUR_EMAIL@EXAMPLE.COM",
+        "toEmail": "={{ $json.from.value[0].address }}",
+        "subject": "Re: {{ $json.subject }}",
+        "text": "Thank you for reaching out! We have received your message and will get back to you shortly.",
+        "options": {}
+      },
+      "id": "email-send-id",
+      "name": "Email Send",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [450, 0]
+    }
+  ],
+  "connections": {
+    "Email Read": {
+      "main": [
+        [
+          {
+            "node": "Email Send",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}

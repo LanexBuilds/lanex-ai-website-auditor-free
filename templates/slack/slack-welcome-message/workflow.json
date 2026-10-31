@@ -1,0 +1,54 @@
+{
+  "name": "Slack Welcome Message",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "### 🚀 Enjoying this template?\n\nThis is the free, basic version. If you want this custom-built and connected to your specific tools (your CRM, your email, your database), I can do it for you.\n\n👉 **[Book a 15-min setup session here](https://lanexbuilds.com/book-audit?utm_source=n8n_template&utm_campaign=slack-welcome-message)**",
+        "height": 300,
+        "width": 400
+      },
+      "id": "sticky-note-id",
+      "name": "CTA",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-200, -200]
+    },
+    {
+      "parameters": {
+        "events": [
+          "team_join"
+        ]
+      },
+      "id": "slack-trigger-id",
+      "name": "Slack Trigger",
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [250, 0]
+    },
+    {
+      "parameters": {
+        "channel": "=#general",
+        "text": "=Welcome to the team, <@{{ $json.user.id }}>! We're glad to have you here."
+      },
+      "id": "slack-message-id",
+      "name": "Slack Welcome Message",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [450, 0]
+    }
+  ],
+  "connections": {
+    "Slack Trigger": {
+      "main": [
+        [
+          {
+            "node": "Slack Welcome Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}
